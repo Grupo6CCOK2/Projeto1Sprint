@@ -37,4 +37,79 @@ function cadastrar() {
     } else {
         erro_email.innerHTML = "Email invalido!";
     }
+
+    if (telefone == "" || telefone < 11) {
+        erro_numero.innerHTML = "Telefone invalido!"
+    } else {
+        erro_numero.innerHTML = ""
+    }
+
+    if (sobrenome == "" || sobrenome < 11) {
+        erro_sobrenome.innerHTML = "Sobrenome invalido!"
+    } else {
+        erro_sobrenome.innerHTML = ""
+    }
+
+    var caracteresEspeciais = "!@#$%^&*()_+-=[]{}|;':\",./<>?";
+    var temEspecial = false;
+
+    if (senha.length < 6) {
+        erro_senha.innerHTML = "Senha muito curta minimo 6";
+    } else {
+        for (let i = 0; i < senha.length; i++) {
+            let caracterAtual = senha[i];
+
+            if (caracteresEspeciais.includes(caracterAtual)) {
+                temEspecial = true;
+                break;
+            }
+        }
+
+        if (!temEspecial) {
+            erro_senha.innerHTML = " Deve conter ao menos 1 caractere especial!";
+        } else {
+            erro_senha.innerHTML = "";
+        }
+    }
+
+
+    // fetch('https://exemplo.com')
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Erro na requisição');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data);
+    //     })
+    //     .catch(error => {
+    //         console.error('Houve um problema:', error);
+    //     });
+
+
+    // const dadosParaEnviar = {
+    //     nome: document.getElementById('inp_nome').value,
+    //     email: document.getElementById('inp_email').value
+    // };
+
+    // fetch('https://exemplo.com', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(dadosParaEnviar)
+    // })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Erro ao enviar');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log('Sucesso:', data);
+    //     })
+    //     .catch(error => {
+    //         console.error('Houve um problema:', error);
+    //     });
 }
