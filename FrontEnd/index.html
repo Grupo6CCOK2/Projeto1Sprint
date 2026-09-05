@@ -21,30 +21,34 @@
             <div class="inputs">
                 <div class="box">
                     <span>Primeiro nome:</span>
-                    <input type="text" placeholder="Ex: Fred"><br>
+                    <span id="erro" style="color: red;"></span>
+                    <input type="text" placeholder="Ex: Fred" id="inp_nome"><br>
                     <span>Email:</span>
-                    <input type="email" placeholder="Ex: fred@exemplo.com"><br>
+                    <span id="erro_email" style="color: red;"></span>
+                    <input type="email" placeholder="Ex: fred@exemplo.com" id="inp_email"><br>
                     <span>Telefone:</span>
-                    <input type="tel" placeholder="Ex: 11999999999"><br>
+                    <input type="tel" placeholder="Ex: 11999999999" id="inp_telefone"><br>
                 </div>
 
                 <div class="box">
                     <span>Sobrenome:</span>
-                    <input type="text" placeholder="Ex: Mercury"><br>
+                    <input type="text" placeholder="Ex: Mercury"  id="inp_sobrenome"><br>
                     <span>Senha:</span>
-                    <input type="password" placeholder="*****"><br>
-                    <span>Tem dependentes: (Filhos)</span>
+                    <input type="password" placeholder="*****" id="inp_senha"><br>
+                    <!-- <span>Tem dependentes: (Filhos)</span>
                     <select name="" id="">
                         <option value="sim">Sim</option>
                         <option value="nao">Não</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
             <div class="botao">
-                <button>Cadastrar</button>
+                <button onclick="cadastrar()">Cadastrar</button>
             </div>
         </div>
     </div>
+
+    <script src="./scriptValidação.js"></script>
 </body>
 
 </html>
