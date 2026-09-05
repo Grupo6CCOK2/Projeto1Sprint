@@ -16,6 +16,7 @@ function cadastrar() {
 
     var contadorArroba = 0
     var posicaoArroba = -1
+    var temPontoDepoisDoArroba = false;
 
     for (let i = 0; i < email.length; i++) {
         const caracter = email[i];
@@ -25,7 +26,7 @@ function cadastrar() {
             posicaoArroba = i
         }
 
-        if (posicaoArroba !== -1 && caractere === ".") {
+        if (posicaoArroba !== -1 && caracter === ".") {
             if (i > posicaoArroba + 1) {
                 temPontoDepoisDoArroba = true;
             }
@@ -38,7 +39,7 @@ function cadastrar() {
         erro_email.innerHTML = "Email invalido!";
     }
 
-    if (telefone == "" || telefone < 11) {
+    if (telefone == "" || telefone.length < 11) {
         erro_numero.innerHTML = "Telefone invalido!"
     } else {
         erro_numero.innerHTML = ""
@@ -72,44 +73,56 @@ function cadastrar() {
         }
     }
 
+    fetch('http://localhost:8080/Usuarios/cadastrar')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Houve um problema:', error);
+        });
 
-    // fetch('https://exemplo.com')
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Erro na requisição');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data);
-    //     })
-    //     .catch(error => {
-    //         console.error('Houve um problema:', error);
-    //     });
+    const dadosParaEnviar = {
+        nome: document.getElementById('inp_nome').value,
+        sobrenome: document.getElementById('inp_sobrenome').value,
+        email: document.getElementById('inp_email').value,
+        senha: document.getElementById('inp_senha').value,
+        telefone: document.getElementById('inp_telefone').value,
+        temDependente: false
+    };
+
+    fetch('http://localhost:8080/Usuarios/cadastrar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosParaEnviar)
+    })
+        .then(response => {
+            if (response.status === 201) {
+                alert("Usuário cadastrado com sucesso!");
+                return;
+            } else if (response.status === 409) {
+                alert("E-mail ou telefone já cadastrados!");
+                throw new Error("Usuário já existe.");
+            } else if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.status);
+            }
 
 
-    // const dadosParaEnviar = {
-    //     nome: document.getElementById('inp_nome').value,
-    //     email: document.getElementById('inp_email').value
-    // };
-
-    // fetch('https://exemplo.com', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(dadosParaEnviar)
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Erro ao enviar');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log('Sucesso:', data);
-    //     })
-    //     .catch(error => {
-    //         console.error('Houve um problema:', error);
-    //     });
+            return response.json();
+        })
+        .then(data => {
+            if (data) {
+                console.log("Sucesso:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Houve um problema:", error);
+        });
 }

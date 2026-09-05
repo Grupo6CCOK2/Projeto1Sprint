@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/cadastrar")
+@RequestMapping("/Usuarios")
 public class CadastroController {
 
     private final JdbcTemplate jdbcTemplate;
@@ -20,7 +21,7 @@ public class CadastroController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<Void> cadastro(@RequestBody Usuario usuario) {
 
         if (usuario == null) {
